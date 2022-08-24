@@ -1,0 +1,39 @@
+name: Build & Publish Docker Images
+
+on:
+    workflow_dispatch:
+
+jobs:
+    build_and_publish:
+        runs-on: ubuntu-latest
+
+        defaults:
+            run:
+                working-directory: ./docker
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Login to Github Packages
+              uses: docker/login-action@v2
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Download base KNIME Dockerfile
+              run: |
+                  curl https://raw.githubusercontent.com/DrSnowbird/knime-docker/86bf236cfe1fee47f82a3d6c49a69db0e0cf6336/Dockerfile --output knimeDockerfile
+
+            - name: Build base KNIME image
+              run: |
+                  docker build -t base_knime_image -f knimeDockerfile --build-arg PRODUCT_VERSION=4.6.0 .
+
+            - name: Build final image
+              run: |
+                  docker build -t ghcr.io/nick-solly/knimer/knimer:latest .
+
+            - name: Push final image
+              run: |
+                  docker push ghcr.io/nick-solly/knimer/knimer:latest
