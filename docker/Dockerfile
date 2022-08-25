@@ -15,4 +15,5 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.
 
 # Copy in startup script and set entrypoint
 COPY startup.sh .
+RUN ["sudo", "chmod", "+x", "startup.sh"]
 ENTRYPOINT ["./startup.sh"]
