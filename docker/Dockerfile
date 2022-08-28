@@ -14,6 +14,7 @@ RUN ${INSTALL_BASE}/${PRODUCT_DIR}/${PRODUCT_EXE} -clean -purgeHistory -applicat
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip && unzip awscliv2.zip && sudo ./aws/install && rm awscliv2.zip
 
 # Copy in startup script and set entrypoint
-COPY startup.sh .
-RUN ["sudo", "chmod", "+x", "startup.sh"]
+WORKDIR /home/developer
+COPY --chown=developer:developer startup.sh .
+RUN chmod +x startup.sh
 ENTRYPOINT ["./startup.sh"]
