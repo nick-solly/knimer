@@ -135,3 +135,4 @@ You can locally build the image using the included `Makefile`.
 - Improve handling of KNIME product versioning
 - Add GitHub Releases and versioning to the Docker images
 - Add link to Cloudwatch logs in Slack message
+- Consider how to move the docker image into AWS ECR to reduce ECS Task spin-up time
