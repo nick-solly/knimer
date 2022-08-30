@@ -133,3 +133,4 @@ You can locally build the image using the included `Makefile`.
 - Allow customisable KNIME extensions to be installed
 - Add a diagram of the AWS infrastructure this module creates
 - Improve handling of KNIME product versioning
+- Add GitHub Releases and versioning to the Docker images
