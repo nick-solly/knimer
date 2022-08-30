@@ -134,3 +134,4 @@ You can locally build the image using the included `Makefile`.
 - Add a diagram of the AWS infrastructure this module creates
 - Improve handling of KNIME product versioning
 - Add GitHub Releases and versioning to the Docker images
+- Add link to Cloudwatch logs in Slack message
