@@ -33,3 +33,12 @@ module "slack" {
   aws_region                   = var.aws_region
   cluster_arn                  = module.ecs.cluster_arn
 }
+
+module "scheduler" {
+  source               = "./scheduler"
+  name_prefix          = var.name_prefix
+  schedule_expressions = var.schedule_expressions
+  cluster_arn          = module.ecs.cluster_arn
+  subnet_ids           = var.subnet_ids
+  task_definition_arn  = module.ecs.task_definition_arn
+}
