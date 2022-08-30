@@ -24,3 +24,12 @@ module "ecs" {
   workflow_secrets_value_arn = module.secrets.workflow_secrets_value_arn
   workflow_variables         = var.workflow_variables
 }
+
+module "slack" {
+  source                       = "./slack"
+  count                        = var.slack_webhook_url_secret_arn == "" ? 0 : 1
+  name_prefix                  = var.name_prefix
+  slack_webhook_url_secret_arn = var.slack_webhook_url_secret_arn
+  aws_region                   = var.aws_region
+  cluster_arn                  = module.ecs.cluster_arn
+}

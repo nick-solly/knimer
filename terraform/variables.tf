@@ -40,3 +40,9 @@ variable "workflow_secrets" {
   type        = map(string)
   sensitive   = true
 }
+
+variable "slack_webhook_url_secret_arn" {
+  description = "ARN of the secret containing the slack webhook url"
+  type        = string
+  default     = ""
+}
