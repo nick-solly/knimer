@@ -6,7 +6,7 @@ build_final_image: build_base_image
 
 build_base_image: download_base_image_dockerfile
 	@echo "*** Building base KNIME image ***"
-	docker build -t base_knime_image -f knimeDockerfile --build-arg PRODUCT_VERSION=4.6.0 .
+	docker build -t base_knime_image -f knimeDockerfile --build-arg PRODUCT_VERSION=4.6.1 .
 
 download_base_image_dockerfile:
 	@echo "*** Downloading base KNIME Dockerfile ***"

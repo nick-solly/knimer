@@ -28,7 +28,7 @@ jobs:
 
             - name: Build base KNIME image
               run: |
-                  docker build -t base_knime_image -f knimeDockerfile --build-arg PRODUCT_VERSION=4.6.0 .
+                  docker build -t base_knime_image -f knimeDockerfile --build-arg PRODUCT_VERSION=4.6.1 .
 
             - name: Build final image
               run: |
