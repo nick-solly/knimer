@@ -1,7 +1,7 @@
 # knimer
 
 knimer provides an automation mechanism for running [KNIME](https://www.knime.com/) 
-workflows and can be used an alternative to KNIME Server.
+workflows and can be used as an alternative to KNIME Server.
 
 There are two parts to this project:
 1. [Docker](https://www.docker.com/) configuration (Dockerfile) to create an image which:
@@ -49,7 +49,13 @@ and upload it to an S3 bucket.
 ### Setting up Slack Notifications (optional)
 
 Follow the instructions [here](https://api.slack.com/messaging/webhooks) to get
-a Webhook URL which is consumed in the below Terraform configuration.
+a Webhook URL (which should be treated as confidential). 
+
+You should then manually store this URL in an
+[AWS Secret](https://aws.amazon.com/secrets-manager/).
+
+The ARN of this secret is then passed as one of the variables into the Terraform
+module.
 
 ### Running the Workflow
 
@@ -132,7 +138,8 @@ You can locally build the image using the included `Makefile`.
 
 - Allow customisable KNIME extensions to be installed
 - Add a diagram of the AWS infrastructure this module creates
-- Improve handling of KNIME product versioning
+- Improve handling of KNIME product versioning as currently it's hardcoded
 - Add GitHub Releases and versioning to the Docker images
-- Add link to Cloudwatch logs in Slack message
+- Add GitHub action to run terraform linting/checking
+- Add a link to the Cloudwatch logs to the Slack message
 - Consider how to move the docker image into AWS ECR to reduce ECS Task spin-up time
