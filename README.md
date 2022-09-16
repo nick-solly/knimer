@@ -136,6 +136,7 @@ You can locally build the image using the included `Makefile`.
 
 ## TODOs
 
+- Add Slack slash command to trigger single run of a workflow
 - Allow customisable KNIME extensions to be installed
 - Add a diagram of the AWS infrastructure this module creates
 - Improve handling of KNIME product versioning as currently it's hardcoded
