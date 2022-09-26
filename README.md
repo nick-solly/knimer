@@ -57,6 +57,10 @@ You should then manually store this URL in an
 The ARN of this secret is then passed as one of the variables into the Terraform
 module.
 
+### Setting up Slack Slash Command (optional)
+
+TODO: Add instructions
+
 ### Running the Workflow
 
 #### Method A (preferred): AWS ECS Fargate configured via Terraform
@@ -136,7 +140,6 @@ You can locally build the image using the included `Makefile`.
 
 ## TODOs
 
-- Add Slack slash command to trigger single run of a workflow
 - Allow customisable KNIME extensions to be installed
 - Add a diagram of the AWS infrastructure this module creates
 - Improve handling of KNIME product versioning as currently it's hardcoded
