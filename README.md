@@ -59,7 +59,50 @@ module.
 
 ### Setting up Slack Slash Command (optional)
 
-TODO: Add instructions
+It's possible to also trigger one-off runs of workflows via a Slack Slash command.
+
+Create a new [Slack App](https://api.slack.com/apps) and from within
+`Settings` -> `Basic Information` -> `App Credentials` find the
+Signing Secret.
+
+You should then manually store this Signing Secret in an
+[AWS Secret](https://aws.amazon.com/secrets-manager/). The ARN of this secret
+is then passed as one of the variables into the Terraform module.
+
+Add the following module to your terraform configuration and customise
+the variables:
+
+```terraform
+module "knimer_slash" {
+   # Uses the terraform scripts directly from this repo (can also pin version with knimer.git?ref=<BLAH>)
+   source                    = "github.com/nick-solly/knimer.git//terraform/slack-trigger"
+   
+   # Used for naming AWS resources
+   name_prefix               = "prod"
+   aws_region                = "eu-west-2"
+   
+   slack_signing_secret_arn  = "arn:aws:secretsmanager:us-west-2:111122223333:secret:aes128-6j1a2g"
+   
+   # Only allow this slash command to be run from certain channel (optional)
+   slack_channel_restriction = "tl_knimer"
+   
+   # ID's of the subnets to run the ECS Task on
+   ecs_subnets               = ["SN1", "SN2"]
+   
+   # A map of the ECS Tasks which can be triggered via the slash command.
+   # Key is Task Definition ARN, Value is Cluster ARN.
+   knimer_ecs_tasks          = {
+      "arn:aws:ecs:us-west-2:111122223333:task-definition:asf123-kcf38k" = "arn:aws:ecs:us-west-2:111122223333:tcluster:389djd-x93kd3"
+   }
+}
+```
+
+Follow the instructions
+[here](https://api.slack.com/interactivity/slash-commands#creating_commands)
+to create the slash command for the new App.
+
+One of the outputs of the terraform module is the endpoint URL you'll need
+to set as the `Request URL`.
 
 ### Running the Workflow
 
@@ -72,7 +115,7 @@ the variables:
 module "knimer" {
    
    # Uses the terraform scripts directly from this repo (can also pin version with knimer.git?ref=<BLAH>)
-   source              = "github.com/nick-solly/knimer.git//terraform"
+   source              = "github.com/nick-solly/knimer.git//terraform/knimer"
    
    aws_region          = "eu-west-2"
    
