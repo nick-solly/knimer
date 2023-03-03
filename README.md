@@ -52,9 +52,9 @@ Follow the instructions [here](https://api.slack.com/messaging/webhooks) to get
 a Webhook URL (which should be treated as confidential). 
 
 You should then manually store this URL in an
-[AWS Secret](https://aws.amazon.com/secrets-manager/).
+[AWS Parameter](https://aws.amazon.com/systems-manager/features/#Parameter_Store).
 
-The ARN of this secret is then passed as one of the variables into the Terraform
+The name and ARN of this parameter are then passed as two of the variables into the Terraform
 module.
 
 ### Setting up Slack Slash Command (optional)
@@ -66,8 +66,8 @@ Create a new [Slack App](https://api.slack.com/apps) and from within
 Signing Secret.
 
 You should then manually store this Signing Secret in an
-[AWS Secret](https://aws.amazon.com/secrets-manager/). The ARN of this secret
-is then passed as one of the variables into the Terraform module.
+[AWS Parameter](https://aws.amazon.com/systems-manager/features/#Parameter_Store). 
+The name and ARN of this parameter are then passed as two of the variables into the Terraform module.
 
 Add the following module to your terraform configuration and customise
 the variables:
@@ -81,7 +81,8 @@ module "knimer_slash" {
    name_prefix               = "prod"
    aws_region                = "eu-west-2"
    
-   slack_signing_secret_arn  = "arn:aws:secretsmanager:us-west-2:111122223333:secret:aes128-6j1a2g"
+   slack_signing_secret_name = "secret"
+   slack_signing_secret_arn  = "arn:aws:ssm:eu-west-2:111122223333:parameter/secret"
    
    # Only allow this slash command to be run from certain channel (optional)
    slack_channel_restriction = "tl_knimer"
@@ -139,7 +140,8 @@ module "knimer" {
    }
    
    # Contains the Slack Webhook URL (optional)
-   slack_webhook_url_secret_arn = "arn:aws:secretsmanager:us-west-2:111122223333:secret:aes128-1a2b3c"
+   slack_webhook_url_secret_name = "slack-webhook-url"
+   slack_webhook_url_secret_arn  = "arn:aws:ssm:eu-west-2:111122223333:parameter/slack-webhook-url"
    
    # Where the ECS Task should be run
    subnet_ids                   = ["subnet-0af169a6f98a3hg34", "subnet-042b69da4001512ca"]

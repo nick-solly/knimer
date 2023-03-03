@@ -16,7 +16,7 @@ def lambda_handler(event, context):
     try:
         slash = Slash(
             lambda_event=event,
-            signing_secret=fetch_secret("SLACK_SIGNING_SECRET_ARN"),
+            signing_secret=fetch_secret("SLACK_SIGNING_SECRET_NAME"),
         )
         if slash.command == "run":
             tasks, failures = slash.run()

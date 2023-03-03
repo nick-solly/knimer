@@ -33,10 +33,10 @@ resource "aws_iam_policy" "secret_access" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "AccessSecrets",
+            "Sid": "AccessParameters",
             "Effect": "Allow",
             "Action": [
-              "secretsmanager:GetSecretValue"
+              "ssm:GetParameters"
             ],
             "Resource": ["${var.slack_signing_secret_arn}"]
         }
@@ -112,7 +112,7 @@ resource "aws_lambda_function" "slasher" {
 
   environment {
     variables = {
-      SLACK_SIGNING_SECRET_ARN  = var.slack_signing_secret_arn
+      SLACK_SIGNING_SECRET_NAME = var.slack_signing_secret_name
       REGION_NAME               = var.aws_region
       ECS_SUBNETS               = join(",", var.ecs_subnets)
       SLACK_CHANNEL_RESTRICTION = var.slack_channel_restriction

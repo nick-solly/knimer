@@ -3,8 +3,13 @@ variable "name_prefix" {
   type        = string
 }
 
+variable "slack_webhook_url_secret_name" {
+  description = "Name of the parameter containing the slack webhook url"
+  type        = string
+}
+
 variable "slack_webhook_url_secret_arn" {
-  description = "ARN of the secret containing the slack webhook url"
+  description = "ARN of the parameter containing the slack webhook url"
   type        = string
 }
 

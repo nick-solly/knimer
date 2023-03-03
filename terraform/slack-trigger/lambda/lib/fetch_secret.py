@@ -3,16 +3,16 @@ from botocore.exceptions import ClientError
 import os
 
 
-def fetch_secret(arn_env_var):
-    secret_arn = os.environ[arn_env_var]
+def fetch_secret(parameter_env_var):
+    parameter_name = os.environ[parameter_env_var]
     region_name = os.environ.get("REGION_NAME", "eu-west-2")
 
     session = boto3.session.Session()
-    client = session.client(service_name="secretsmanager", region_name=region_name)
+    client = session.client(service_name="ssm", region_name=region_name)
 
     try:
-        get_secret_value_response = client.get_secret_value(SecretId=secret_arn)
+        get_parameter_response = client.get_parameter(Name=parameter_name, WithDecryption=True)
     except ClientError as e:
         raise e
     else:
-        return get_secret_value_response["SecretString"]
+        return get_parameter_response["Parameter"]["Value"]

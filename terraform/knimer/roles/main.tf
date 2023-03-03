@@ -39,10 +39,10 @@ resource "aws_iam_policy" "secret_access" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "AccessSecrets",
+            "Sid": "AccessParameters",
             "Effect": "Allow",
             "Action": [
-              "secretsmanager:GetSecretValue"
+              "ssm:GetParameters"
             ],
             "Resource": ["${var.workflow_secrets_value_arn}"]
         }
