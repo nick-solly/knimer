@@ -33,10 +33,10 @@ resource "aws_iam_policy" "secret_access" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "AccessSecrets",
+            "Sid": "AccessParameters",
             "Effect": "Allow",
             "Action": [
-              "secretsmanager:GetSecretValue"
+              "ssm:GetParameters"
             ],
             "Resource": ["${var.slack_webhook_url_secret_arn}"]
         }
@@ -70,8 +70,8 @@ resource "aws_lambda_function" "slacker" {
 
   environment {
     variables = {
-      SLACK_WEBHOOK_URL_SECRET_ARN = var.slack_webhook_url_secret_arn
-      REGION_NAME                  = var.aws_region
+      SLACK_WEBHOOK_URL_SECRET_NAME = var.slack_webhook_url_secret_name
+      REGION_NAME                   = var.aws_region
     }
   }
 }

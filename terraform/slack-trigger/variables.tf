@@ -3,8 +3,13 @@ variable "name_prefix" {
   type        = string
 }
 
+variable "slack_signing_secret_name" {
+  description = "Name of the parameter containing the slack signing secret"
+  type        = string
+}
+
 variable "slack_signing_secret_arn" {
-  description = "ARN of the secret containing the slack signing secret"
+  description = "ARN of the parameter containing the slack signing secret"
   type        = string
 }
 

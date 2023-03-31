@@ -8,18 +8,18 @@ http = urllib3.PoolManager()
 
 
 def get_slack_webhook_url():
-    secret_arn = os.environ["SLACK_WEBHOOK_URL_SECRET_ARN"]
+    parameter_name = os.environ["SLACK_WEBHOOK_URL_SECRET_NAME"]
     region_name = os.environ["REGION_NAME"]
 
     session = boto3.session.Session()
-    client = session.client(service_name='secretsmanager', region_name=region_name)
+    client = session.client(service_name="ssm", region_name=region_name)
 
     try:
-        get_secret_value_response = client.get_secret_value(SecretId=secret_arn)
+        get_parameter_response = client.get_parameter(Name=parameter_name, WithDecryption=True)
     except ClientError as e:
         raise e
     else:
-        return get_secret_value_response['SecretString']
+        return get_parameter_response["Parameter"]["Value"]
 
 
 def lambda_handler(event, context):

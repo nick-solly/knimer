@@ -26,12 +26,13 @@ module "ecs" {
 }
 
 module "slack" {
-  source                       = "./slack"
-  count                        = var.slack_webhook_url_secret_arn == "" ? 0 : 1
-  name_prefix                  = var.name_prefix
-  slack_webhook_url_secret_arn = var.slack_webhook_url_secret_arn
-  aws_region                   = var.aws_region
-  cluster_arn                  = module.ecs.cluster_arn
+  source                        = "./slack"
+  count                         = var.slack_webhook_url_secret_arn == "" ? 0 : 1
+  name_prefix                   = var.name_prefix
+  slack_webhook_url_secret_name = var.slack_webhook_url_secret_name
+  slack_webhook_url_secret_arn  = var.slack_webhook_url_secret_arn
+  aws_region                    = var.aws_region
+  cluster_arn                   = module.ecs.cluster_arn
 }
 
 module "scheduler" {
