@@ -9,6 +9,6 @@ variable "s3_bucket_name" {
 }
 
 variable "workflow_secrets_value_arn" {
-  description = "The ARN of the secret containing the KNIME workflow credentials"
+  description = "The ARN of the parameter containing the KNIME workflow credentials"
   type        = string
 }
