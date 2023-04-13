@@ -36,7 +36,7 @@ resource "aws_iam_policy" "secret_access" {
             "Sid": "AccessParameters",
             "Effect": "Allow",
             "Action": [
-              "ssm:GetParameters"
+              "ssm:GetParameter"
             ],
             "Resource": ["${var.slack_webhook_url_secret_arn}"]
         }
